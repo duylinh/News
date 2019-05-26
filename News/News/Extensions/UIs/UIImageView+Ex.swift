@@ -10,10 +10,8 @@ import UIKit
 import Kingfisher
 
 extension UIImageView {
-    func setWebImage(_ urlString: String?, placeholder: UIImage? = nil, completed: ((Bool) -> ())? = nil) {
-        
-        if let urlStr = urlString?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        {
+    func setImage(_ urlString: String?, placeholder: UIImage? = nil, completed: ((Bool) -> ())? = nil) {
+        if let urlStr = urlString?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed){
             guard let url = URL(string: urlStr) else {
                 completed?(false)
                 return
@@ -27,20 +25,19 @@ extension UIImageView {
                     .scaleFactor(UIScreen.main.scale),
                     .transition(.fade(0.3)),
                     .cacheOriginalImage
-                ])
-            {
+                ]){
                 result in
                 switch result {
                 case .success(_):
                     completed?(true)
-                case .failure(let error):
+                case .failure(let _):
                     completed?(false)
                 }
             }
         }
     }
     
-    func cancelDownloadTask() {
+    func cancelDownload() {
         self.kf.cancelDownloadTask()
     }
 }

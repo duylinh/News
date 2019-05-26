@@ -11,10 +11,8 @@ import UIKit
 final class ImageFeedDetailCell: UITableViewCell {
     
     static let ID = "ImageFeedDetailCell"
-    static var nib: UINib {
-        return UINib.init(nibName: ID, bundle: Bundle.main)
-    }
     
+    @IBOutlet weak var ls_height_previewImageView: NSLayoutConstraint!
     @IBOutlet weak var previewImageView: UIImageView!
     @IBOutlet weak var captionLabel: UILabel!
     
@@ -27,11 +25,11 @@ final class ImageFeedDetailCell: UITableViewCell {
         super.prepareForReuse()
         
         previewImageView.image = nil
-        previewImageView.cancelDownloadTask()
+        previewImageView.cancelDownload()
     }
     
     func configure(with model: FeedDetailSection.ImageContent, indexPath: IndexPath) {
         captionLabel.text = model.caption
-        previewImageView.setWebImage(model.href)
+        previewImageView.setImage(model.href)
     }
 }

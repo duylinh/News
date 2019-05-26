@@ -11,6 +11,7 @@ end
 def ui
   pod 'SnapKit'
   pod 'KRProgressHUD'
+  pod 'CollectionViewShelfLayout'
 end
 
 def utilities

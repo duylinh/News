@@ -61,7 +61,7 @@ extension HomeView: HomeViewDataSourceDelegate {
     
     func didSelectRowAt(with model: Feed, indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        navigationController?.pushViewController(AppCoordinator().feedDetailVC(), animated: true)
+        navigationController?.pushViewController(StoryboardScene.Main.feedDetailView.instantiate(), animated: true)
     }
     
 }

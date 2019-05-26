@@ -11,9 +11,6 @@ import UIKit
 final class TextFeedDetailCell: UITableViewCell {
     
     static let ID = "TextFeedDetailCell"
-    static var nib: UINib {
-        return UINib.init(nibName: ID, bundle: Bundle.main)
-    }
     
     @IBOutlet weak var textView: UITextView!
     

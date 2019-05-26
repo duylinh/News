@@ -7,69 +7,59 @@
 //
 
 import UIKit
+import CollectionViewShelfLayout
 
 class FeedCell: UITableViewCell {
     
     static let ID = "FeedCell"
-    static var nib: UINib {
-        return UINib.init(nibName: ID, bundle: Bundle.main)
-    }
     static let font = UIFont.systemFont(ofSize: 16.0)
     
-    @IBOutlet weak var shadowView: ShadowView!
+    @IBOutlet weak var backView: ShadowView!
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var previewImageView: UIImageView!
-    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
-    @IBOutlet weak var typeImageView: UIImageView!
+    
+    var model: Feed?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        configViews()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        previewImageView.cancelDownloadTask()
-        previewImageView.image = nil
-        avatarImageView.cancelDownloadTask()
-        avatarImageView.image = nil
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
-    private func configViews() {
-        containerView.layer.cornerRadius = 20
-        containerView.layer.masksToBounds = true
+    func configure(with model: Feed?, indexPath: IndexPath) {
+        titleLabel.text = model?.title
+        contentLabel.text = model?.description
         
-        shadowView.setShadow(shadowColor: UIColor.darkGray.cgColor, shadowRadius: 5)
-        
-        previewImageView.clipsToBounds = true
-        previewImageView.contentMode = .scaleAspectFill
-        
-        avatarImageView.contentMode = .scaleAspectFill
-        avatarImageView.layer.cornerRadius = avatarImageView.bounds.width/2
-        avatarImageView.layer.masksToBounds = true
+        let shelfLayout = CollectionViewShelfLayout()
+//        shelfLayout.itemSize = CGSize(width: 100, height: 100)
+        collectionView.collectionViewLayout = shelfLayout
+    }
+}
+
+extension FeedCell: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let images = self.model?.images else {
+            return 1
+        }
+        return images.count
     }
     
-    func configure(with model: Feed, indexPath: IndexPath) {
-        
-        titleLabel.text = model.title
-        contentLabel.text = model.description
-        previewImageView.setWebImage(model.getPreviewUrl())
-        avatarImageView.setWebImage(model.publisher?.icon, placeholder: UIImage(named: "img_placeholder_user"))
-        
-        switch model.type {
-        case .video:
-            typeImageView.image = UIImage(named: "icon_video")
-        case .gallery:
-            typeImageView.image = UIImage(named: "icon_gallery")
-        default:
-            typeImageView.image = nil
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = UICollectionViewCell ()
+        cell.contentView.layer.cornerRadius = 15
+        if let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCell.ID, for: indexPath) as? ImageCell {
+            itemCell.configure(with: self.model?.images == nil ? nil : self.model?.images?[indexPath.row] ?? nil)
+            return itemCell
         }
+        return cell
     }
+    
 }

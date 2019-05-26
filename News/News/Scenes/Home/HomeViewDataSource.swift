@@ -36,8 +36,6 @@ final class HomeViewDataSource: NSObject {
         tableView.tableFooterView = UIView()
         tableView.allowsSelection = true
         tableView.allowsMultipleSelection = false
-        
-        tableView.register(FeedCell.nib, forCellReuseIdentifier: FeedCell.ID)
     }
     
 }

@@ -38,10 +38,6 @@ final class FeedDetailViewDataSource: NSObject {
         tableView.tableFooterView = UIView()
         tableView.allowsSelection = false
         tableView.allowsMultipleSelection = false
-        
-        tableView.register(TextFeedDetailCell.nib, forCellReuseIdentifier: TextFeedDetailCell.ID)
-        tableView.register(ImageFeedDetailCell.nib, forCellReuseIdentifier: ImageFeedDetailCell.ID)
-        tableView.register(VideoFeedDetailCell.nib, forCellReuseIdentifier: VideoFeedDetailCell.ID)
     }
     
 }

@@ -15,9 +15,6 @@ protocol VideoFeedDetailCellDelegate: class {
 final class VideoFeedDetailCell: UITableViewCell {
     
     static let ID = "VideoFeedDetailCell"
-    static var nib: UINib {
-        return UINib.init(nibName: ID, bundle: Bundle.main)
-    }
     
     @IBOutlet weak var previewImageView: UIImageView!
     @IBOutlet weak var captionLabel: UILabel!
@@ -35,14 +32,14 @@ final class VideoFeedDetailCell: UITableViewCell {
         super.prepareForReuse()
         
         previewImageView.image = nil
-        previewImageView.cancelDownloadTask()
+        previewImageView.cancelDownload()
         
         delegate = nil
     }
     
     func configure(with model: FeedDetailSection.VideoContent, indexPath: IndexPath) {
         captionLabel.text = model.caption
-        previewImageView.setWebImage(model.preview.href)
+        previewImageView.setImage(model.preview.href)
         self.indexPath = indexPath
     }
     

@@ -32,7 +32,7 @@ colors:
 xcassets:
   inputs:
     - Resources/Assets/General.xcassets
-    - Resources/Assets/News.xcassets
+    - Resources/Assets/Home.xcassets
   outputs:
     templateName: swift4
     output: Assets.swift

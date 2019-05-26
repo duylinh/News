@@ -34,28 +34,27 @@ final class HomeViewModel {
     }
     
     func generateItems() {
-//        do {
-//            let result = try FeedList.fromJSONFile("newsfeed") as FeedList
-//            self.items = result.items
-//        } catch {
-//            self.items = []
-//        }
+        do {
+            let result = try FeedList.fromJSONFile("newsfeed") as FeedList
+            self.items = result.items
+        } catch {
+            self.items = []
+        }
         
         
-        LoadingHelper.shared.showHUD()
-        APIService.shared.getFeeds(completion: { [weak self] result in
-            switch result {
-            case .success(let feeds):
-                guard feeds != nil, feeds!.count > 0 else {
-                    return
-                }
-                LoadingHelper.shared.dismissHUD()
-                self?.items = feeds ?? []
-            case .failure( _):
-                LoadingHelper.shared.dismissHUD()
-                self?.items = []
-                return
-            }
-        })
+//        LoadingHelper.shared.showHUD()
+//        APIService.shared.getFeeds(completion: { [weak self] result in
+//            switch result {
+//            case .success(let feeds):
+//                LoadingHelper.shared.dismissHUD()
+//                if let items = feeds {
+//                    self?.items = feeds ?? []
+//                }
+//            case .failure( _):
+//                LoadingHelper.shared.dismissHUD()
+//                self?.items = []
+//                return
+//            }
+//        })
     }
 }
