@@ -1,0 +1,57 @@
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '10.0'
+use_frameworks!
+inhibit_all_warnings!
+
+def networking
+  pod 'Alamofire'
+  pod 'Kingfisher'
+end
+
+def ui
+  pod 'SnapKit'
+  pod 'KRProgressHUD'
+end
+
+def utilities
+  pod 'SwiftDate'
+  pod 'SwiftLint'
+end
+
+def codegen
+  pod 'SwiftGen'
+end
+
+def testing
+  pod 'Quick'
+  pod 'Nimble'
+end
+
+def firebase
+  
+end
+
+def social
+  
+end
+
+target 'News' do
+  use_frameworks!
+  
+  networking
+  ui
+  utilities
+  codegen
+  firebase
+  social
+end
+
+target 'NewsTests' do
+  inherit! :search_paths
+  testing
+end
+
+
+#delete 'Pods/', 'Podfile.lock', 'yourappname.xcworkspace'
+#pod deintegrate
+#pod intall
